@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Projeto Freelances</string>
+    <string name="dataCasamento">Data:</string>
+    <string name="fotografoPrincipal">Fotografo:</string>
+    <string name="nomeNoivos">Noivos:</string>
+    <string name="localCasamento">Local:</string>
+    <string name="spekable_floatButton">adicionar Freelancer</string>
+</resources>
