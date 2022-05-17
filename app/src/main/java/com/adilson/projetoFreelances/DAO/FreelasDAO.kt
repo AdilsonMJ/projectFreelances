@@ -13,7 +13,9 @@ class FreelasDAO {
     }
 
     companion object {
-        private val freelas = mutableListOf<Freelas>()
+        private val freelas = mutableListOf<Freelas>(
+            Freelas("21/11/22", "20:00", "Nilton Reis", "93293232", "Adilson and Lu",  "Igreja de Lourdes")
+        )
     }
 
 
