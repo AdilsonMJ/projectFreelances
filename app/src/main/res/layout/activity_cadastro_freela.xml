@@ -42,18 +42,7 @@
             app:layout_constraintStart_toStartOf="@+id/editTextFotografo"
             app:layout_constraintTop_toBottomOf="@+id/editTextFotografo" />
 
-        <EditText
-            android:id="@+id/editTextTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="Hora"
-            android:inputType="time"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/editTextFotografo"
-            app:layout_constraintTop_toBottomOf="@+id/datePickerButton" />
+
 
         <EditText
             android:id="@+id/editTextNomeNoivos"
@@ -97,6 +86,22 @@
             app:layout_constraintStart_toEndOf="@+id/editTextLocal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextLocal" />
+
+        <Button
+            android:id="@+id/timePickerButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:hint="Horas"
+            style="?android:spinnerStyle"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/editTextFotografo"
+            app:layout_constraintTop_toBottomOf="@+id/datePickerButton" />
 
         <Button
             android:id="@+id/buttonSalvarFreela"

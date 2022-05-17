@@ -1,8 +1,8 @@
 package com.adilson.projetoFreelances.ui.activity
 
 import android.R
-import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -24,10 +24,11 @@ class CadastroFreela : AppCompatActivity() {
 
     private lateinit var btn_salvar: Button
     private lateinit var dateButton: Button
+    private lateinit var timeButton: Button
 
-    private  var getDate: Calendar = Calendar.getInstance()
-    private lateinit var datePickerDialog: DatePickerDialog
-    var formatDate = SimpleDateFormat("dd / MM / yyyy", Locale.US)
+    private  var hour: Int = 0
+    private  var minute: Int = 0
+
 
     private val dao = FreelasDAO()
 
@@ -35,24 +36,53 @@ class CadastroFreela : AppCompatActivity() {
     private val binding by lazy {
         ActivityCadastroFreelaBinding.inflate(layoutInflater)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         linksTheEditTextAndButton()
         configSaveButton()
-        SetDate()
+
+        getDate()
+        getTime()
 
 
 
     }
 
-    private fun SetDate() {
+    private fun getTime() {
+        timeButton.setOnClickListener {
+
+            val onTimeSetListener =
+                TimePickerDialog.OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
+                    hour = selectedHour
+                    minute = selectedMinute
+                    textHora =
+                        String.format(Locale.getDefault(), "%02d:%02d", hour, minute)
+                    timeButton.text = textHora
+                }
+
+            // int style = AlertDialog.THEME_HOLO_DARK;
+            val timePickerDialog =
+                TimePickerDialog(this,  /*style,*/onTimeSetListener, hour, minute, true)
+            timePickerDialog.show()
+
+        }
+    }
+
+    private fun getDate() {
+
+        var formatDate = SimpleDateFormat("dd / MM / yyyy", Locale.US)
+        var getDate: Calendar = Calendar.getInstance()
+
+
         dateButton.setOnClickListener {
-             datePickerDialog = DatePickerDialog(
+
+            var datePickerDialog = DatePickerDialog(
                 this,
                 R.style.Theme_DeviceDefault_Dialog_MinWidth,
-                DatePickerDialog.OnDateSetListener { datePicker, i, i2, i3 ->
+                DatePickerDialog.OnDateSetListener { _, i, i2, i3 ->
 
                     val selectDate = Calendar.getInstance()
                     selectDate.set(Calendar.YEAR, i)
@@ -77,9 +107,9 @@ class CadastroFreela : AppCompatActivity() {
         btn_salvar.setOnClickListener {
             linksTheEditTextAndButton()
 
-            if (textDate.isBlank() && textName.isBlank()){
+            if (textDate.isBlank() && textName.isBlank()) {
                 Toast.makeText(this, "Nome e Data Sao OBRIGATORIOS", Toast.LENGTH_SHORT).show()
-            } else{
+            } else {
                 salvarDadosNoDAO()
                 finish()
             }
@@ -90,10 +120,10 @@ class CadastroFreela : AppCompatActivity() {
 
         val freela = Freelas(
             date = textDate,
-            horas =  textHora,
+            horas = textHora,
             nomeFotografo = textName,
             celular = textCelular,
-            noivos =  textNoivos,
+            noivos = textNoivos,
             local = textLocal
         )
         dao.add(freela)
@@ -104,10 +134,12 @@ class CadastroFreela : AppCompatActivity() {
         textName = binding.editTextFotografo.text.toString()
         textNoivos = binding.editTextNomeNoivos.text.toString()
         textCelular = binding.editTextPhone.text.toString()
-        textHora = binding.editTextTime.text.toString()
         textLocal = binding.editTextLocal.text.toString()
+
+        timeButton = binding.timePickerButton
         btn_salvar = binding.buttonSalvarFreela
-        dateButton  = binding.datePickerButton
+        dateButton = binding.datePickerButton
+
     }
 
 
