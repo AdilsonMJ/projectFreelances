@@ -4,19 +4,46 @@ import com.adilson.projetoFreelances.model.Freelas
 
 class FreelasDAO {
 
+
+
+    companion object {
+
+        private var countID = 1
+        private val freelasList = mutableListOf<Freelas>()
+
+    }
+
     fun add(freela: Freelas){
-            freelas.add(freela)
+            freela.setID(countId = countID)
+            freelasList.add(freela)
+             upDateIdToTheNextUser()
+    }
+
+    private fun upDateIdToTheNextUser() {
+        countID++
     }
 
     fun lookAll() : List<Freelas>{
-        return freelas.toList() // Enviar uma copia para nao altera a list original
+        return freelasList.sortedBy { it.date } // Enviar uma copia para nao altera a list original e Ordena por list
     }
 
-    companion object {
-        private val freelas = mutableListOf<Freelas>(
-            Freelas("21/11/22", "20:00", "Nilton Reis", "93293232", "Adilson and Lu",  "Igreja de Lourdes")
-        )
+
+    private fun lookingIfFreelaExist(freela: Freelas): Freelas? {
+        for (f in freelasList){
+            if (f.id == freela.id){
+                return f
+            }
+        }
+
+        return null
     }
 
+
+    fun remove (freelaSelect: Freelas){
+        val freelaReturn = lookingIfFreelaExist(freelaSelect)
+        if (freelaReturn != null){
+            freelasList.remove(freelaReturn)
+        }
+    }
 
 }

@@ -4,7 +4,8 @@ import android.R
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.widget.*
+import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.adilson.projetoFreelances.DAO.FreelasDAO
 import com.adilson.projetoFreelances.databinding.ActivityCadastroFreelaBinding
@@ -16,19 +17,20 @@ import java.util.*
 class CadastroFreela : AppCompatActivity() {
 
     private lateinit var textName: String
-    private lateinit var textDate: String
+    private  var textDate: String? = null
     private lateinit var textNoivos: String
     private lateinit var textCelular: String
-    private lateinit var textHora: String
+    private  var textHora: String? = null
     private lateinit var textLocal: String
 
     private lateinit var btn_salvar: Button
     private lateinit var dateButton: Button
     private lateinit var timeButton: Button
 
-    private  var hour: Int = 0
-    private  var minute: Int = 0
+    private var hour: Int = 0
+    private var minute: Int = 0
 
+    private var freela: Freelas = Freelas()
 
     private val dao = FreelasDAO()
 
@@ -46,7 +48,6 @@ class CadastroFreela : AppCompatActivity() {
 
         getDate()
         getTime()
-
 
 
     }
@@ -73,26 +74,23 @@ class CadastroFreela : AppCompatActivity() {
 
     private fun getDate() {
 
-        var formatDate = SimpleDateFormat("dd / MM / yyyy", Locale.US)
-        var getDate: Calendar = Calendar.getInstance()
+        val formatDate = SimpleDateFormat("dd / MM / yyyy", Locale.US)
+        val getDate: Calendar = Calendar.getInstance()
 
 
         dateButton.setOnClickListener {
 
-            var datePickerDialog = DatePickerDialog(
+            val datePickerDialog = DatePickerDialog(
                 this,
                 R.style.Theme_DeviceDefault_Dialog_MinWidth,
-                DatePickerDialog.OnDateSetListener { _, i, i2, i3 ->
+                { _, i, i2, i3 ->
 
                     val selectDate = Calendar.getInstance()
                     selectDate.set(Calendar.YEAR, i)
                     selectDate.set(Calendar.MONTH, i2)
                     selectDate.set(Calendar.DAY_OF_MONTH, i3)
                     textDate = formatDate.format(selectDate.time)
-                    Toast.makeText(this, "Date : $textDate", Toast.LENGTH_SHORT).show()
-
                     dateButton.text = textDate
-
                 },
                 getDate.get(Calendar.YEAR),
                 getDate.get(Calendar.MONTH),
@@ -106,27 +104,20 @@ class CadastroFreela : AppCompatActivity() {
 
         btn_salvar.setOnClickListener {
             linksTheEditTextAndButton()
+            salvarDadosNoDAO()
 
-            if (textDate.isBlank() && textName.isBlank()) {
-                Toast.makeText(this, "Nome e Data Sao OBRIGATORIOS", Toast.LENGTH_SHORT).show()
-            } else {
-                salvarDadosNoDAO()
-                finish()
-            }
         }
     }
 
     private fun salvarDadosNoDAO() {
 
-        val freela = Freelas(
-            date = textDate,
-            horas = textHora,
-            nomeFotografo = textName,
-            celular = textCelular,
-            noivos = textNoivos,
-            local = textLocal
-        )
-        dao.add(freela)
+        if(!( freela.nomeFotografo.isNullOrEmpty() || freela.date.isNullOrEmpty())){
+            dao.add(freela)
+            finish()
+        } else{
+            Toast.makeText(this, "Preencha O Nome e Data", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     private fun linksTheEditTextAndButton() {
@@ -140,7 +131,18 @@ class CadastroFreela : AppCompatActivity() {
         btn_salvar = binding.buttonSalvarFreela
         dateButton = binding.datePickerButton
 
+        setDadosNoObject()
+
     }
 
+    private fun setDadosNoObject() {
+
+        freela.nomeFotografo = textName.trim()
+        freela.noivos = textNoivos.trim()
+        freela.celular = textCelular.trim()
+        freela.local = textLocal.trim()
+        freela.date = textDate
+        freela.horas = textHora
+    }
 
 }
