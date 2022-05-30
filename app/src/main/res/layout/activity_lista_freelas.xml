@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/activity_show_freelas"
+        tools:listitem="@layout/activity_objeto_freelas"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

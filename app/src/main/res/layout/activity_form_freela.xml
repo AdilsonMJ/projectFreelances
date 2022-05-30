@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.activity.CadastroFreela">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/FildEditTextFotografo"
+            style="@style/formularioStyle"
+            android:hint="@string/profissional"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconContentDescription="@string/profissional"
+            app:startIconDrawable="@android:drawable/ic_menu_camera">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextFotografo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/FildeditTextPhone"
+            style="@style/formularioStyle"
+            android:hint="@string/Telefone"
+            app:layout_constraintEnd_toEndOf="@+id/FildEditTextFotografo"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/FildEditTextFotografo"
+            app:layout_constraintTop_toBottomOf="@+id/FildEditTextFotografo"
+            app:startIconCheckable="false"
+            app:startIconDrawable="@android:drawable/ic_menu_call">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/FildEditTextNomeNoivos"
+            style="@style/formularioStyle"
+            android:hint="@string/noivos"
+            app:layout_constraintEnd_toEndOf="@+id/FildEditTextFotografo"
+            app:layout_constraintStart_toStartOf="@+id/FildEditTextFotografo"
+            app:layout_constraintTop_toBottomOf="@+id/FildeditTextPhone"
+            app:startIconDrawable="@android:drawable/ic_secure">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextNomeNoivos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/FildEditTextLocal"
+            style="@style/formularioStyle"
+            android:hint="@string/local"
+            app:layout_constraintEnd_toEndOf="@+id/FildEditTextFotografo"
+            app:layout_constraintStart_toStartOf="@+id/FildEditTextFotografo"
+            app:layout_constraintTop_toBottomOf="@+id/FildEditTextNomeNoivos"
+            app:startIconDrawable="@android:drawable/ic_dialog_map">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextLocal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/datePickerButton"
+            style="?android:spinnerStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/date"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/FildEditTextLocal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/FildEditTextLocal"
+            />
+
+        <Button
+            android:id="@+id/timePickerButton"
+            style="?android:spinnerStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/horas"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/FildEditTextFotografo"
+            app:layout_constraintTop_toBottomOf="@+id/datePickerButton" />
+
+        <Button
+            android:id="@+id/buttonSalvarFreela"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/salvar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timePickerButton"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

@@ -7,8 +7,11 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.room.Room
 import com.adilson.projetoFreelances.DAO.FreelasDAO
-import com.adilson.projetoFreelances.databinding.ActivityCadastroFreelaBinding
+import com.adilson.projetoFreelances.DataBase.AppDatabase
+import com.adilson.projetoFreelances.DataBase.dao.freelaDAO
+import com.adilson.projetoFreelances.databinding.ActivityFormFreelaBinding
 import com.adilson.projetoFreelances.model.Freelas
 import java.text.SimpleDateFormat
 import java.util.*
@@ -30,13 +33,13 @@ class CadastroFreela : AppCompatActivity() {
     private var hour: Int = 0
     private var minute: Int = 0
 
-    private var freela: Freelas = Freelas()
+    private lateinit var freela: Freelas
 
     private val dao = FreelasDAO()
 
 
     private val binding by lazy {
-        ActivityCadastroFreelaBinding.inflate(layoutInflater)
+        ActivityFormFreelaBinding.inflate(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +51,8 @@ class CadastroFreela : AppCompatActivity() {
 
         getDate()
         getTime()
+
+
 
 
     }
@@ -111,8 +116,12 @@ class CadastroFreela : AppCompatActivity() {
 
     private fun salvarDadosNoDAO() {
 
-        if(!( freela.nomeFotografo.isNullOrEmpty() || freela.date.isNullOrEmpty())){
-            dao.add(freela)
+        if(!( freela.nomeFotografo.isEmpty() || freela.date.isNullOrEmpty())){
+            val db = AppDatabase.getInstance(this)
+
+            val freelasDao = db.freelasDao()
+            freelasDao.salva(freela)
+
             finish()
         } else{
             Toast.makeText(this, "Preencha O Nome e Data", Toast.LENGTH_SHORT).show()
@@ -122,11 +131,10 @@ class CadastroFreela : AppCompatActivity() {
 
     private fun linksTheEditTextAndButton() {
 
-        textName = binding.editTextFotografo.text.toString()
-        textNoivos = binding.editTextNomeNoivos.text.toString()
-        textCelular = binding.editTextPhone.text.toString()
-        textLocal = binding.editTextLocal.text.toString()
-
+        textName = binding.editTextFotografo.text.toString().trim()
+        textNoivos = binding.editTextNomeNoivos.text.toString().trim()
+        textCelular = binding.editTextPhone.text.toString().trim()
+        textLocal = binding.editTextLocal.text.toString().trim()
         timeButton = binding.timePickerButton
         btn_salvar = binding.buttonSalvarFreela
         dateButton = binding.datePickerButton
@@ -137,12 +145,16 @@ class CadastroFreela : AppCompatActivity() {
 
     private fun setDadosNoObject() {
 
-        freela.nomeFotografo = textName.trim()
-        freela.noivos = textNoivos.trim()
-        freela.celular = textCelular.trim()
-        freela.local = textLocal.trim()
-        freela.date = textDate
-        freela.horas = textHora
+
+        freela = Freelas(
+            date = textDate,
+            horas = textHora,
+            nomeFotografo = textName,
+            celular = textCelular,
+            noivos = textNoivos,
+            local = textLocal
+
+        )
     }
 
 }

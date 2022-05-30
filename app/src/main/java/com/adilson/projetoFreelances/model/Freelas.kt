@@ -1,20 +1,23 @@
 package com.adilson.projetoFreelances.model
 
-class Freelas{
 
-    var date: String? = null
-    var horas: String? = null
-    var nomeFotografo: String? = null
-    var celular: String? = null
-    var noivos: String? = null
-    var local: String? = null
+import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
-    var id = 0
-        private set
+@Entity
+@Parcelize
+class Freelas(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0L,
+    val date: String? = null,
+    val horas: String? = null,
+    val nomeFotografo: String = "",
+    val celular: String = "",
+    val noivos: String = "",
+    val local: String = ""
+) : Parcelable {
 
-      fun setID(countId: Int){
-        id = countId
-    }
 
     val hasIdValid: Boolean
         get() {

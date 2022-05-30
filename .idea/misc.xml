@@ -7,9 +7,15 @@
         <entry key="..\:/Users/adils/Documents/GitHub/AluraAndroidKolinOrgs/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/adils/Documents/GitHub/AluraAndroidKolinOrgs/app/src/main/res/layout/activity_show_freelas.xml" value="0.536" />
         <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/activity_cadastro_freela.xml" value="0.264" />
+        <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/activity_detalhes.xml" value="0.24583333333333332" />
+        <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/activity_form_freela.xml" value="0.2453125" />
         <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/activity_form_menu.xml" value="0.24583333333333332" />
-        <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/activity_lista_freelas.xml" value="0.1" />
+        <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/activity_lista_freelas.xml" value="0.264" />
+        <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/activity_objeto_freelas.xml" value="0.24583333333333332" />
+        <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/activity_resume_freelances.xml" value="0.24375" />
+        <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/activity_show_freela.xml" value="0.24583333333333332" />
         <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/activity_show_freelas.xml" value="0.72" />
+        <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/menu/activity_list_menu.xml" value="0.24583333333333332" />
         <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/menu/activity_list_students_menu.xml" value="0.1" />
       </map>
     </option>
@@ -21,7 +27,8 @@
     <option name="id" value="Android" />
   </component>
   <component name="com.itcodebox.notebooks.projectservice.ProjectUIState">
-    <option name="selectedChapterId" value="8" />
-    <option name="selectedNoteId" value="12" />
+    <option name="selectedNotebookId" value="3" />
+    <option name="selectedChapterId" value="9" />
+    <option name="selectedNoteId" value="14" />
   </component>
 </project>
