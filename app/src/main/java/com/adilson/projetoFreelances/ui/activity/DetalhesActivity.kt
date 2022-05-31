@@ -1,5 +1,6 @@
 package com.adilson.projetoFreelances.ui.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -23,7 +24,7 @@ class DetalhesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        uploadFreelas()
+        getDatesFromIntent()
         btn_voltar()
         setTitle(title)
     }
@@ -40,6 +41,10 @@ class DetalhesActivity : AppCompatActivity() {
             val freelasDao = db.freelasDao()
             return when (item.itemId){
                 R.id.menu_edite -> {
+                    Intent(this, CadastroFreela::class.java).apply {
+                        putExtra(CHAVE_FREELA_INTENT, freela)
+                        startActivity(this)
+                    }
                     true
 
                 }
@@ -63,7 +68,7 @@ class DetalhesActivity : AppCompatActivity() {
         }
     }
 
-    private fun uploadFreelas() {
+    private fun getDatesFromIntent() {
         intent.getParcelableExtra<Freelas>(CHAVE_FREELA_INTENT)?.let { freelas ->
             freela = freelas
             filltheFilds(freelas)

@@ -44,7 +44,6 @@ class ListaDeFreelasActivity : AppCompatActivity() {
         val freelaDAO = db.freelasDao()
         adapter.upDateAdapter(freelaDAO.buscaTodos())
 
-
     }
 
     private fun configRecycleView() {
@@ -54,12 +53,11 @@ class ListaDeFreelasActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         adapter.onClicked = {
-            val intent: Intent = Intent(
+            startActivity(Intent(
                 this, DetalhesActivity::class.java
             ).apply {
                 putExtra(CHAVE_FREELA_INTENT, it)
-            }
-            startActivity(intent)
+            })
         }
 
         adapter.onClickRemove = {
@@ -67,6 +65,13 @@ class ListaDeFreelasActivity : AppCompatActivity() {
             val freelasDao = db.freelasDao()
             freelasDao.remove(it)
             onResume()
+        }
+
+        adapter.onClickEdit = {
+            startActivity(Intent(this, CadastroFreela::class.java).apply {
+                putExtra(CHAVE_FREELA_INTENT, it)
+            })
+
         }
 
     }

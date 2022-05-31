@@ -1,9 +1,6 @@
 package com.adilson.projetoFreelances.DataBase.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.adilson.projetoFreelances.model.Freelas
 
 @Dao
@@ -17,5 +14,8 @@ interface freelaDAO {
 
     @Delete
     fun remove(freelas: Freelas)
+
+    @Update
+    fun altera(freelas: Freelas)
 
 }

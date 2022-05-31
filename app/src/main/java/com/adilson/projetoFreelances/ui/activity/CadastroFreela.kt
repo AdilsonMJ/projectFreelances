@@ -8,8 +8,10 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.adilson.projetoFreelances.DataBase.AppDatabase
+import com.adilson.projetoFreelances.DataBase.dao.freelaDAO
 import com.adilson.projetoFreelances.databinding.ActivityFormFreelaBinding
 import com.adilson.projetoFreelances.model.Freelas
+import com.adilson.projetoFreelances.ui.CHAVE_FREELA_INTENT
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -26,6 +28,8 @@ class CadastroFreela : AppCompatActivity() {
 
     private lateinit var freela: Freelas
 
+    private var idFreela = 0L;
+
 
     private val binding by lazy {
         ActivityFormFreelaBinding.inflate(layoutInflater)
@@ -41,7 +45,34 @@ class CadastroFreela : AppCompatActivity() {
         getDate()
         getTime()
 
+        editarFreela()
 
+    }
+
+    private fun editarFreela() {
+        intent.getParcelableExtra<Freelas>(CHAVE_FREELA_INTENT)?.let { freelaCarregado ->
+
+            title = "Altera Evento"
+
+            idFreela = freelaCarregado.id
+            binding.editTextFotografo.setText(freelaCarregado.nomeFotografo)
+            binding.editTextLocal.setText(freelaCarregado.local)
+            binding.editTextNomeNoivos.setText(freelaCarregado.noivos)
+            binding.editTextPhone.setText(freelaCarregado.celular)
+            binding.datePickerButton.setText(freelaCarregado.date)
+            binding.timePickerButton.setText(freelaCarregado.horas)
+
+            setDadosNoObject(
+                textName = freelaCarregado.nomeFotografo,
+                textCelular = freelaCarregado.celular,
+                textLocal = freelaCarregado.local,
+                textNoivos = freelaCarregado.noivos
+            )
+
+            textDate = freelaCarregado.date
+            textHora = freelaCarregado.horas
+
+        }
     }
 
     private fun getTime() {
@@ -106,18 +137,26 @@ class CadastroFreela : AppCompatActivity() {
     }
 
     private fun salvarDadosNoDAO() {
+        val db = AppDatabase.getInstance(this)
+        val freelasDao = db.freelasDao()
 
-        if (!(freela.nomeFotografo.isEmpty() || freela.date.isNullOrEmpty())) {
-            val db = AppDatabase.getInstance(this)
-
-            val freelasDao = db.freelasDao()
-            freelasDao.salva(freela)
-
+        if (verificarCampos()){
+            if(idFreela > 0){
+                freelasDao.altera(freela)
+            } else{
+                freelasDao.salva(freela)
+            }
             finish()
-        } else {
-            Toast.makeText(this, "Preencha o Nome e Data", Toast.LENGTH_SHORT).show()
-        }
 
+        } else
+            Toast.makeText(this, "Campo nome e data sao obrigatorios", Toast.LENGTH_SHORT).show()
+
+    }
+
+    private fun verificarCampos(): Boolean {
+        val status = !freela.nomeFotografo.isEmpty() && !freela.date.isNullOrEmpty()
+
+        return status
     }
 
     private fun linksTheEditTextAndButton() {
@@ -143,6 +182,7 @@ class CadastroFreela : AppCompatActivity() {
 
 
         freela = Freelas(
+            id = idFreela,
             date = textDate,
             horas = textHora,
             nomeFotografo = textName,
