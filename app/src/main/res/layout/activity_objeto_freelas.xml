@@ -65,5 +65,18 @@
         app:layout_constraintStart_toEndOf="@+id/rcv_text_nomeFotografo"
         tools:text="99999-999" />
 
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:dividerInsetEnd="16dp"
+        app:dividerInsetStart="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rcv_text_nomeFotografo" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

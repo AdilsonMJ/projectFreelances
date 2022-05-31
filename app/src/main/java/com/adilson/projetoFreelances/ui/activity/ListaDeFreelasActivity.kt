@@ -2,16 +2,11 @@ package com.adilson.projetoFreelances.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
-import com.adilson.projetoFreelances.DAO.FreelasDAO
 import com.adilson.projetoFreelances.DataBase.AppDatabase
+import com.adilson.projetoFreelances.DataBase.dao.freelaDAO
 import com.adilson.projetoFreelances.adapter.ListFreelasAdapter
 import com.adilson.projetoFreelances.databinding.ActivityListaFreelasBinding
-import com.adilson.projetoFreelances.model.Freelas
 import com.adilson.projetoFreelances.ui.CHAVE_FREELA_INTENT
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -22,9 +17,8 @@ class ListaDeFreelasActivity : AppCompatActivity() {
     private lateinit var BTN_goToAcitivityFormulario: FloatingActionButton
 
     // Para nao precisar ficar recriando o adapter
-    private val dao = FreelasDAO()
     private val adapter =
-        ListFreelasAdapter(context = this@ListaDeFreelasActivity, freela = dao.lookAll())
+        ListFreelasAdapter(context = this@ListaDeFreelasActivity, freela = emptyList())
 
     // Set Binding View
     private val binding by lazy {
@@ -66,6 +60,13 @@ class ListaDeFreelasActivity : AppCompatActivity() {
                 putExtra(CHAVE_FREELA_INTENT, it)
             }
             startActivity(intent)
+        }
+
+        adapter.onClickRemove = {
+            val db = AppDatabase.getInstance(this)
+            val freelasDao = db.freelasDao()
+            freelasDao.remove(it)
+            onResume()
         }
 
     }

@@ -113,31 +113,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Voltar"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonEditar"
-        app:layout_constraintEnd_toStartOf="@+id/buttonEditar"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/buttonEditar" />
-
-    <Button
-        android:id="@+id/buttonEditar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Editar"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonApagar"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/buttonVoltar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/showNameNoivos" />
 
-    <Button
-        android:id="@+id/buttonApagar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Apagar"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonEditar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/buttonEditar"
-        app:layout_constraintTop_toTopOf="@+id/buttonEditar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

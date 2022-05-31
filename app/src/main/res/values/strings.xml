@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Projeto Freelances</string>
       <string name="spekable_floatButton">adicionar Freelancer</string>
-    <string name="Remove">remove</string>
-    <string name="Edite">edite</string>
+    <string name="Remove">Remove</string>
+    <string name="Edite">Edite</string>
     <string name="profissional">Profissional</string>
     <string name="noivos">Noivos</string>
     <string name="Telefone">Telefone</string>

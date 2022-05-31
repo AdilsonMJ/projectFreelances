@@ -10,8 +10,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class Freelas(
     @PrimaryKey(autoGenerate = true) val id: Long = 0L,
-    val date: String? = null,
-    val horas: String? = null,
+    var date: String? = null,
+    var horas: String? = null,
     val nomeFotografo: String = "",
     val celular: String = "",
     val noivos: String = "",

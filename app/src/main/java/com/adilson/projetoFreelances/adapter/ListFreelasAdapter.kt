@@ -2,15 +2,20 @@ package com.adilson.projetoFreelances.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
+import com.adilson.projetoFreelances.R
 import com.adilson.projetoFreelances.databinding.ActivityObjetoFreelasBinding
 import com.adilson.projetoFreelances.model.Freelas
 
 class ListFreelasAdapter(
     private val context: Context,
-    freela: List<Freelas>,
-    var onClicked: (Freelas) -> Unit = {}
+    freela: List<Freelas> = emptyList(),
+    var onClicked: (Freelas) -> Unit = {},
+    var onClickEdit: (Freelas) -> Unit = {},
+    var onClickRemove: (Freelas) -> Unit = {},
 ) :
     RecyclerView.Adapter<ListFreelasAdapter.FreesViewHolder>() {
     // Agora posso ter uma lista que pode ser mudada
@@ -18,7 +23,7 @@ class ListFreelasAdapter(
 
     //Onde sera criado a view
     inner class FreesViewHolder(binding: ActivityObjetoFreelasBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root), PopupMenu.OnMenuItemClickListener  {
 
         //Tive que criar essa variavel mais nao faco a minima ideia do por que.
         private lateinit var fre: Freelas
@@ -29,16 +34,23 @@ class ListFreelasAdapter(
                     onClicked(fre)
                 }
             }
+
+            itemView.setOnLongClickListener{
+                PopupMenu(context, itemView).apply {
+                    menuInflater.inflate(
+                        R.menu.activity_list_menu, menu
+                    )
+                    setOnMenuItemClickListener(this@FreesViewHolder)
+                }.show()
+                true
+            }
+
         }
 
         // val dataCasamento = itemView.findViewById<TextView>(R.id.rcv_text_dataFreela)
         val dataCasamento = binding.rcvTextDataFreela
         val telefoneFotografo = binding.rcvTextCelularFotografo
         val nameFotografo = binding.rcvTextNomeFotografo
-
-
-
-
 
         fun bind(freela: Freelas, onClicked: (Freelas) -> Unit) {
 
@@ -49,6 +61,22 @@ class ListFreelasAdapter(
             telefoneFotografo.text = fre.celular
 
         }
+
+        override fun onMenuItemClick(item: MenuItem?): Boolean {
+            item?.let {
+                when(it.itemId){
+                    R.id.menu_edite ->{
+                        onClickEdit(fre)
+                    }
+
+                    R.id.menu_remove ->{
+                        onClickRemove(fre)
+                    }
+                }
+            }
+            return true
+        }
+
     }
 
     //Onde vou inflar a view
