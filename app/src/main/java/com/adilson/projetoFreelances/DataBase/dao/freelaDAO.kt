@@ -9,13 +9,14 @@ interface freelaDAO {
     @Query("SELECT * FROM Freelas ORDER BY date ASC")
     fun buscaTodos() : List<Freelas>
 
-    @Insert
+    //Dont need user upload because now the room check if not exist the element in the DB
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun salva(vararg freelas: Freelas)
 
     @Delete
     fun remove(freelas: Freelas)
 
-    @Update
-    fun altera(freelas: Freelas)
+    @Query(" SELECT * FROM FREELAS WHERE id = :id")
+    fun buscarPorId(id: Long) : Freelas?
 
 }

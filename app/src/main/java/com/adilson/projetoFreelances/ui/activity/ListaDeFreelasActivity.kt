@@ -4,10 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.adilson.projetoFreelances.DataBase.AppDatabase
-import com.adilson.projetoFreelances.DataBase.dao.freelaDAO
 import com.adilson.projetoFreelances.adapter.ListFreelasAdapter
 import com.adilson.projetoFreelances.databinding.ActivityListaFreelasBinding
-import com.adilson.projetoFreelances.ui.CHAVE_FREELA_INTENT
+import com.adilson.projetoFreelances.ui.CHAVE_FREELA_ID
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
@@ -56,7 +55,7 @@ class ListaDeFreelasActivity : AppCompatActivity() {
             startActivity(Intent(
                 this, DetalhesActivity::class.java
             ).apply {
-                putExtra(CHAVE_FREELA_INTENT, it)
+                putExtra(CHAVE_FREELA_ID, it.id)
             })
         }
 
@@ -69,7 +68,7 @@ class ListaDeFreelasActivity : AppCompatActivity() {
 
         adapter.onClickEdit = {
             startActivity(Intent(this, CadastroFreela::class.java).apply {
-                putExtra(CHAVE_FREELA_INTENT, it)
+                putExtra(CHAVE_FREELA_ID, it.id)
             })
 
         }

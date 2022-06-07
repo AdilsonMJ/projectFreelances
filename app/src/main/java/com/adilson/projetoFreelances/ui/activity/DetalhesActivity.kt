@@ -1,32 +1,55 @@
 package com.adilson.projetoFreelances.ui.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import com.adilson.projetoFreelances.DataBase.AppDatabase
 import com.adilson.projetoFreelances.R
 import com.adilson.projetoFreelances.databinding.ActivityDetalhesBinding
 import com.adilson.projetoFreelances.model.Freelas
-import com.adilson.projetoFreelances.ui.CHAVE_FREELA_INTENT
+import com.adilson.projetoFreelances.ui.CHAVE_FREELA_ID
+
 
 class DetalhesActivity : AppCompatActivity() {
 
-    private lateinit var freela: Freelas
-    private lateinit var title: String;
+
+    private var idFreela: Long = 0L
+    private var freela: Freelas? = null
+    private var title: String = "Detalhes"
+
+
+    private val freeDAO by lazy {
+        AppDatabase.getInstance(this).freelasDao()
+    }
 
     private val binding by lazy {
         ActivityDetalhesBinding.inflate(layoutInflater)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        setTitle(title)
 
         getDatesFromIntent()
+
         btn_voltar()
-        setTitle(title)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        buscaProdutoNoDB()
+    }
+
+    private fun buscaProdutoNoDB() {
+        freela = freeDAO.buscarPorId(idFreela)
+
+        freela?.let {
+            filltheFilds(it)
+        } ?: finish()
     }
 
 
@@ -36,26 +59,27 @@ class DetalhesActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (::freela.isInitialized){
-            val db = AppDatabase.getInstance(this)
-            val freelasDao = db.freelasDao()
-            return when (item.itemId){
-                R.id.menu_edite -> {
-                    Intent(this, CadastroFreela::class.java).apply {
-                        putExtra(CHAVE_FREELA_INTENT, freela)
-                        startActivity(this)
-                    }
-                    true
 
+        when (item.itemId) {
+            R.id.menu_edite -> {
+                Intent(this, CadastroFreela::class.java).apply {
+                    putExtra(CHAVE_FREELA_ID, idFreela)
+                    startActivity(this)
                 }
-                R.id.menu_remove -> {
-                    freelasDao.remove(freela)
-                    finish()
-                    true
-                }
-                else -> super.onOptionsItemSelected(item)
+
+
             }
+            R.id.menu_remove -> {
+                freela?.let {
+                    freeDAO.remove(it)
+                    finish()
+                }
+
+
+            }
+            else -> super.onOptionsItemSelected(item)
         }
+
         super.onOptionsItemSelected(item)
         return true
     }
@@ -63,21 +87,18 @@ class DetalhesActivity : AppCompatActivity() {
 
     private fun btn_voltar() {
         val btn: Button = binding.buttonVoltar
-        btn.setOnClickListener{
+        btn.setOnClickListener {
             finish()
         }
     }
 
     private fun getDatesFromIntent() {
-        intent.getParcelableExtra<Freelas>(CHAVE_FREELA_INTENT)?.let { freelas ->
-            freela = freelas
-            filltheFilds(freelas)
-        } ?: finish()
+        idFreela = intent.getLongExtra(CHAVE_FREELA_ID, 0L)
     }
 
     private fun filltheFilds(load: Freelas) {
-        with(binding){
-            showDate.text = load.date
+        with(binding) {
+            showDate.text = load.date?.toString()
             showHora.text = load.horas
             showLocal.text = load.local
             showNameNoivos.text = load.noivos

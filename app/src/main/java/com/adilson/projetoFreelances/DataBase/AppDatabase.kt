@@ -4,22 +4,30 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.adilson.projetoFreelances.DataBase.Converters.Converters
 import com.adilson.projetoFreelances.DataBase.dao.freelaDAO
 import com.adilson.projetoFreelances.model.Freelas
 
 
 @Database(entities = [Freelas::class], version = 1)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun freelasDao() : freelaDAO
 
     companion object {
+
+        @Volatile
+        private lateinit var db: AppDatabase
+
         fun getInstance(context: Context): AppDatabase{
+            if (::db.isInitialized) return db
             return Room.databaseBuilder(
                 context,
                 AppDatabase::class.java,
                 "freeladb.db"
-            ).allowMainThreadQueries().build()
+            ).allowMainThreadQueries().build().also { db = it }
         }
     }
 
@@ -27,6 +35,9 @@ abstract class AppDatabase : RoomDatabase() {
 
 
 /*
+
+    Volatile -> Para nao ficar recriando banco de dados em toda a instancia, pois isso consume muita memoria.
+
 * entities:  O entites é justamente para determinarmos quais foram as entidades que configuramos dentro do nosso projeto,
 *  que o Room vai conseguir configurar e se comunicar com SQLite,
 *  seja gerando as tabelas, fazendo os comportamentos a partir dos DAOs e assim por diante.

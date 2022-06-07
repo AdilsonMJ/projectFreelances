@@ -5,12 +5,13 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
+import java.sql.Date
 
 @Entity
 @Parcelize
 class Freelas(
     @PrimaryKey(autoGenerate = true) val id: Long = 0L,
-    var date: String? = null,
+    var date: java.util.Date? = null,
     var horas: String? = null,
     val nomeFotografo: String = "",
     val celular: String = "",

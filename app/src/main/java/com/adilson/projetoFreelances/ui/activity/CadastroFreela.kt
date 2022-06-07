@@ -8,10 +8,10 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.adilson.projetoFreelances.DataBase.AppDatabase
-import com.adilson.projetoFreelances.DataBase.dao.freelaDAO
 import com.adilson.projetoFreelances.databinding.ActivityFormFreelaBinding
 import com.adilson.projetoFreelances.model.Freelas
-import com.adilson.projetoFreelances.ui.CHAVE_FREELA_INTENT
+import com.adilson.projetoFreelances.ui.CHAVE_FREELA_ID
+import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,7 +19,7 @@ import java.util.*
 class CadastroFreela : AppCompatActivity() {
 
 
-    private var textDate: String? = null
+    private var date: Date? = null
     private var textHora: String? = null
 
     private lateinit var btn_salvar: Button
@@ -35,6 +35,11 @@ class CadastroFreela : AppCompatActivity() {
         ActivityFormFreelaBinding.inflate(layoutInflater)
     }
 
+    private val freelasDAO by lazy {
+        val db = AppDatabase.getInstance(this)
+        db.freelasDao()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -45,34 +50,40 @@ class CadastroFreela : AppCompatActivity() {
         getDate()
         getTime()
 
-        editarFreela()
+        editarFreelaGetID()
 
     }
 
-    private fun editarFreela() {
-        intent.getParcelableExtra<Freelas>(CHAVE_FREELA_INTENT)?.let { freelaCarregado ->
-
-            title = "Altera Evento"
-
-            idFreela = freelaCarregado.id
-            binding.editTextFotografo.setText(freelaCarregado.nomeFotografo)
-            binding.editTextLocal.setText(freelaCarregado.local)
-            binding.editTextNomeNoivos.setText(freelaCarregado.noivos)
-            binding.editTextPhone.setText(freelaCarregado.celular)
-            binding.datePickerButton.setText(freelaCarregado.date)
-            binding.timePickerButton.setText(freelaCarregado.horas)
-
-            setDadosNoObject(
-                textName = freelaCarregado.nomeFotografo,
-                textCelular = freelaCarregado.celular,
-                textLocal = freelaCarregado.local,
-                textNoivos = freelaCarregado.noivos
-            )
-
-            textDate = freelaCarregado.date
-            textHora = freelaCarregado.horas
-
+    override fun onResume() {
+        super.onResume()
+        freelasDAO.buscarPorId(idFreela)?.let {
+            preencherCamposComDadosDoBD(it)
         }
+    }
+
+
+    private fun preencherCamposComDadosDoBD(it: Freelas) {
+        title = "Altera Freela"
+        binding.editTextLocal.setText(it.local)
+        binding.editTextNomeNoivos.setText(it.noivos)
+        binding.editTextFotografo.setText(it.nomeFotografo)
+        binding.editTextPhone.setText(it.celular)
+        binding.datePickerButton.text = it.date.toString()
+        binding.timePickerButton.text = it.horas
+
+        setDadosNoObject(
+            textName = it.nomeFotografo,
+            textLocal = it.local,
+            textNoivos = it.noivos,
+            textCelular = it.celular
+        )
+        date = it.date
+        textHora = it.horas
+
+    }
+
+    private fun editarFreelaGetID() {
+        idFreela = intent.getLongExtra(CHAVE_FREELA_ID, 0L)
     }
 
     private fun getTime() {
@@ -101,11 +112,10 @@ class CadastroFreela : AppCompatActivity() {
 
     private fun getDate() {
 
-        val formatDate = SimpleDateFormat("dd / MM / yyyy", Locale.getDefault())
-        val getDate: Calendar = Calendar.getInstance()
-
-
         dateButton.setOnClickListener {
+
+            val formatDateString = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            val getDate: Calendar = Calendar.getInstance()
 
             val datePickerDialog = DatePickerDialog(
                 this,
@@ -116,8 +126,10 @@ class CadastroFreela : AppCompatActivity() {
                     selectDate.set(Calendar.YEAR, i)
                     selectDate.set(Calendar.MONTH, i2)
                     selectDate.set(Calendar.DAY_OF_MONTH, i3)
-                    textDate = formatDate.format(selectDate.time)
-                    dateButton.text = textDate
+
+                    date = selectDate.time
+                    dateButton.text  = formatDateString.format(selectDate.time)
+
                 },
                 getDate.get(Calendar.YEAR),
                 getDate.get(Calendar.MONTH),
@@ -137,15 +149,11 @@ class CadastroFreela : AppCompatActivity() {
     }
 
     private fun salvarDadosNoDAO() {
-        val db = AppDatabase.getInstance(this)
-        val freelasDao = db.freelasDao()
 
-        if (verificarCampos()){
-            if(idFreela > 0){
-                freelasDao.altera(freela)
-            } else{
-                freelasDao.salva(freela)
-            }
+
+        if (verificarCampos()) {
+//
+            freelasDAO.salva(freela)
             finish()
 
         } else
@@ -154,9 +162,8 @@ class CadastroFreela : AppCompatActivity() {
     }
 
     private fun verificarCampos(): Boolean {
-        val status = !freela.nomeFotografo.isEmpty() && !freela.date.isNullOrEmpty()
+        return !freela.nomeFotografo.isEmpty() && !freela.date?.toString()?.isEmpty()!!
 
-        return status
     }
 
     private fun linksTheEditTextAndButton() {
@@ -183,7 +190,7 @@ class CadastroFreela : AppCompatActivity() {
 
         freela = Freelas(
             id = idFreela,
-            date = textDate,
+            date = date,
             horas = textHora,
             nomeFotografo = textName,
             celular = textCelular,

@@ -1,10 +1,12 @@
 package com.adilson.projetoFreelances.adapter
 
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.adilson.projetoFreelances.R
 import com.adilson.projetoFreelances.databinding.ActivityObjetoFreelasBinding
@@ -52,11 +54,12 @@ class ListFreelasAdapter(
         val telefoneFotografo = binding.rcvTextCelularFotografo
         val nameFotografo = binding.rcvTextNomeFotografo
 
+
         fun bind(freela: Freelas, onClicked: (Freelas) -> Unit) {
 
             this.fre = freela
 
-            dataCasamento.text = fre.date
+            dataCasamento.text = fre.date.toString()
             nameFotografo.text = fre.nomeFotografo
             telefoneFotografo.text = fre.celular
 
