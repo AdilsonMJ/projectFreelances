@@ -11,8 +11,11 @@ import com.adilson.projetoFreelances.DataBase.AppDatabase
 import com.adilson.projetoFreelances.databinding.ActivityFormFreelaBinding
 import com.adilson.projetoFreelances.model.Freelas
 import com.adilson.projetoFreelances.ui.CHAVE_FREELA_ID
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 
 
@@ -114,29 +117,31 @@ class CadastroFreela : AppCompatActivity() {
 
         dateButton.setOnClickListener {
 
-            val formatDateString = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-            val getDate: Calendar = Calendar.getInstance()
+            val calendarContraintBuilder = CalendarConstraints.Builder()
+            calendarContraintBuilder.setValidator(DateValidatorPointForward.now())
 
-            val datePickerDialog = DatePickerDialog(
-                this,
-                R.style.Theme_DeviceDefault_Dialog_MinWidth,
-                { _, i, i2, i3 ->
+            val datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Selec date")
+                .setCalendarConstraints(calendarContraintBuilder.build())
+                .build()
 
-                    val selectDate = Calendar.getInstance()
-                    selectDate.set(Calendar.YEAR, i)
-                    selectDate.set(Calendar.MONTH, i2)
-                    selectDate.set(Calendar.DAY_OF_MONTH, i3)
+            datePicker.show(supportFragmentManager, "DatePicker")
 
-                    date = selectDate.time
-                    dateButton.text  = formatDateString.format(selectDate.time)
+            datePicker.addOnPositiveButtonClickListener {
 
-                },
-                getDate.get(Calendar.YEAR),
-                getDate.get(Calendar.MONTH),
-                getDate.get(Calendar.DAY_OF_MONTH)
-            )
-            datePickerDialog.show()
+                val dateFormat = SimpleDateFormat("dd/MM/yyyy")
+
+                // ALERT! CONVERT STRING > LONG > DATE IN DB CONVERT AGAIN TO LONG
+                val dat = dateFormat.format(Date(it))
+                val d  = Date.parse(dat)
+                date = Date(d)
+
+                dateButton.text = dat
+
+            }
+
         }
+
     }
 
     private fun configSaveButton() {
