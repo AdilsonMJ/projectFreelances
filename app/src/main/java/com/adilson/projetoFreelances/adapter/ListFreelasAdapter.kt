@@ -1,16 +1,15 @@
 package com.adilson.projetoFreelances.adapter
 
 import android.content.Context
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.adilson.projetoFreelances.R
 import com.adilson.projetoFreelances.databinding.ActivityObjetoFreelasBinding
 import com.adilson.projetoFreelances.model.Freelas
+import java.text.SimpleDateFormat
 
 class ListFreelasAdapter(
     private val context: Context,
@@ -40,7 +39,7 @@ class ListFreelasAdapter(
             itemView.setOnLongClickListener{
                 PopupMenu(context, itemView).apply {
                     menuInflater.inflate(
-                        R.menu.activity_list_menu, menu
+                        R.menu.activity_list_menu_edite_cancel, menu
                     )
                     setOnMenuItemClickListener(this@FreesViewHolder)
                 }.show()
@@ -55,11 +54,13 @@ class ListFreelasAdapter(
         val nameFotografo = binding.rcvTextNomeFotografo
 
 
-        fun bind(freela: Freelas, onClicked: (Freelas) -> Unit) {
+        fun bind(freela: Freelas) {
 
             this.fre = freela
 
-            dataCasamento.text = fre.date.toString()
+            val dateFormat = SimpleDateFormat("dd/MM/yyyy")
+            dataCasamento.text = dateFormat.format(fre.date)
+
             nameFotografo.text = fre.nomeFotografo
             telefoneFotografo.text = fre.celular
 
@@ -97,7 +98,7 @@ class ListFreelasAdapter(
     //Pegar a posicao dos itens
     override fun onBindViewHolder(holder: FreesViewHolder, position: Int) {
         val freela = freelas[position]
-        holder.bind(freela, onClicked = onClicked)
+        holder.bind(freela)
     }
 
     // Quantos itens vai ter a view

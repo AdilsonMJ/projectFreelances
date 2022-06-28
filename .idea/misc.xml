@@ -6,16 +6,24 @@
         <entry key="..\:/Users/adils/Documents/GitHub/AluraAndroidKolinOrgs/app/src/main/res/layout/activity_cadastro_freela.xml" value="0.264" />
         <entry key="..\:/Users/adils/Documents/GitHub/AluraAndroidKolinOrgs/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/adils/Documents/GitHub/AluraAndroidKolinOrgs/app/src/main/res/layout/activity_show_freelas.xml" value="0.536" />
+        <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/acitivity_fragment_main.xml" value="0.25" />
         <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/activity_cadastro_freela.xml" value="0.264" />
         <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/activity_detalhes.xml" value="0.24583333333333332" />
-        <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/activity_form_freela.xml" value="0.2453125" />
+        <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/activity_form_freela.xml" value="0.1" />
         <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/activity_form_menu.xml" value="0.24583333333333332" />
         <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/activity_lista_freelas.xml" value="0.264" />
         <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/activity_objeto_freelas.xml" value="0.536" />
         <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/activity_resume_freelances.xml" value="0.24375" />
         <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/activity_show_freela.xml" value="0.24583333333333332" />
         <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/activity_show_freelas.xml" value="0.72" />
+        <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/fragment_item.xml" value="0.25" />
+        <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/fragment_item_list.xml" value="0.25" />
+        <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/layout/fragment_old_freelas.xml" value="0.25" />
+        <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/menu/acitivty_show_old_freelas.xml" value="0.25" />
         <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/menu/activity_list_menu.xml" value="0.1" />
+        <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/menu/activity_list_menu_edite_cancel.xml" value="0.25" />
+        <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/menu/activity_list_menu_show_old_freelas_and_new_freelas.xml" value="0.25" />
         <entry key="..\:/Users/adils/Documents/GitHub/projetoFreelances/app/src/main/res/menu/activity_list_students_menu.xml" value="0.1" />
       </map>
     </option>

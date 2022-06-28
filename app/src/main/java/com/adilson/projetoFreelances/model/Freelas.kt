@@ -11,7 +11,7 @@ import java.sql.Date
 @Parcelize
 class Freelas(
     @PrimaryKey(autoGenerate = true) val id: Long = 0L,
-    var date: java.util.Date? = null,
+    var date: Long? = null,
     var horas: String? = null,
     val nomeFotografo: String = "",
     val celular: String = "",

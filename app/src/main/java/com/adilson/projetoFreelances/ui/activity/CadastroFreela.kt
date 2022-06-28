@@ -1,9 +1,7 @@
 package com.adilson.projetoFreelances.ui.activity
 
-import android.R
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.os.Bundle
+import android.text.format.DateFormat.is24HourFormat
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,15 +12,16 @@ import com.adilson.projetoFreelances.ui.CHAVE_FREELA_ID
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
 
 
 class CadastroFreela : AppCompatActivity() {
 
 
-    private var date: Date? = null
+    private var textDate: Long? = null
     private var textHora: String? = null
 
     private lateinit var btn_salvar: Button
@@ -30,9 +29,8 @@ class CadastroFreela : AppCompatActivity() {
     private lateinit var timeButton: Button
 
     private lateinit var freela: Freelas
-
     private var idFreela = 0L;
-
+    val dateFormat = SimpleDateFormat("dd/MM/yyyy")
 
     private val binding by lazy {
         ActivityFormFreelaBinding.inflate(layoutInflater)
@@ -50,6 +48,7 @@ class CadastroFreela : AppCompatActivity() {
         linksTheEditTextAndButton()
         configSaveButton()
 
+
         getDate()
         getTime()
 
@@ -64,14 +63,20 @@ class CadastroFreela : AppCompatActivity() {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        finish()
+    }
+
 
     private fun preencherCamposComDadosDoBD(it: Freelas) {
+
         title = "Altera Freela"
         binding.editTextLocal.setText(it.local)
         binding.editTextNomeNoivos.setText(it.noivos)
         binding.editTextFotografo.setText(it.nomeFotografo)
         binding.editTextPhone.setText(it.celular)
-        binding.datePickerButton.text = it.date.toString()
+        binding.datePickerButton.text = dateFormat.format(it.date)
         binding.timePickerButton.text = it.horas
 
         setDadosNoObject(
@@ -80,7 +85,8 @@ class CadastroFreela : AppCompatActivity() {
             textNoivos = it.noivos,
             textCelular = it.celular
         )
-        date = it.date
+
+        textDate = it.date
         textHora = it.horas
 
     }
@@ -92,23 +98,24 @@ class CadastroFreela : AppCompatActivity() {
     private fun getTime() {
         timeButton.setOnClickListener {
 
-            //     TimePickerFragment().show(supportFragmentManager, "timePicker")
-            var hour: Int = 0
-            var minute: Int = 0
+            val isSystem24Hour = is24HourFormat(this)
+            val clockFormat = if (isSystem24Hour) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H
 
-            val onTimeSetListener =
-                TimePickerDialog.OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
-                    hour = selectedHour
-                    minute = selectedMinute
-                    textHora =
-                        String.format(Locale.getDefault(), "%02d:%02d", hour, minute)
-                    timeButton.text = textHora
-                }
+            val picker = MaterialTimePicker.Builder()
+                .setTimeFormat(clockFormat)
+                .setTitleText("Select Appointment time")
+                .build()
 
-            // int style = AlertDialog.THEME_HOLO_DARK;
-            val timePickerDialog =
-                TimePickerDialog(this,  /*style,*/onTimeSetListener, hour, minute, true)
-            timePickerDialog.show()
+            picker.show(supportFragmentManager, "TimePicker")
+
+            picker.addOnPositiveButtonClickListener {
+                val h = picker.hour
+                val min = picker.minute
+
+                textHora = "$h : $min"
+                timeButton.text = textHora
+
+            }
 
         }
     }
@@ -128,14 +135,8 @@ class CadastroFreela : AppCompatActivity() {
             datePicker.show(supportFragmentManager, "DatePicker")
 
             datePicker.addOnPositiveButtonClickListener {
-
-                val dateFormat = SimpleDateFormat("dd/MM/yyyy")
-
-                // ALERT! CONVERT STRING > LONG > DATE IN DB CONVERT AGAIN TO LONG
                 val dat = dateFormat.format(Date(it))
-                val d  = Date.parse(dat)
-                date = Date(d)
-
+                textDate = Date.parse(dat)
                 dateButton.text = dat
 
             }
@@ -149,27 +150,15 @@ class CadastroFreela : AppCompatActivity() {
         btn_salvar.setOnClickListener {
             linksTheEditTextAndButton()
             salvarDadosNoDAO()
-
         }
     }
 
     private fun salvarDadosNoDAO() {
 
-
-        if (verificarCampos()) {
-//
+        if(!(freela.date == null || freela.nomeFotografo.isEmpty())){
             freelasDAO.salva(freela)
             finish()
-
-        } else
-            Toast.makeText(this, "Campo nome e data sao obrigatorios", Toast.LENGTH_SHORT).show()
-
-    }
-
-    private fun verificarCampos(): Boolean {
-        return !freela.nomeFotografo.isEmpty() && !freela.date?.toString()?.isEmpty()!!
-
-    }
+        } }
 
     private fun linksTheEditTextAndButton() {
 
@@ -191,18 +180,19 @@ class CadastroFreela : AppCompatActivity() {
         textCelular: String,
         textLocal: String
     ) {
-
-
         freela = Freelas(
             id = idFreela,
-            date = date,
+            date = textDate,
             horas = textHora,
             nomeFotografo = textName,
             celular = textCelular,
             noivos = textNoivos,
             local = textLocal
-
         )
+
+        if (!(freela.date == null || freela.nomeFotografo.isEmpty())){
+            btn_salvar.isEnabled = true
+        }
     }
 
 }

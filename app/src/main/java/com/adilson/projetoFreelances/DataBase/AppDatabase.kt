@@ -4,14 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-import com.adilson.projetoFreelances.DataBase.Converters.Converters
 import com.adilson.projetoFreelances.DataBase.dao.freelaDAO
 import com.adilson.projetoFreelances.model.Freelas
 
 
 @Database(entities = [Freelas::class], version = 1)
-@TypeConverters(Converters::class)
+
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun freelasDao() : freelaDAO
