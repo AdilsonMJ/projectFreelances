@@ -55,7 +55,7 @@ class DetalhesActivity : AppCompatActivity() {
     }
 
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.activity_list_menu_edite_cancel, menu)
         return super.onCreateOptionsMenu(menu)
     }

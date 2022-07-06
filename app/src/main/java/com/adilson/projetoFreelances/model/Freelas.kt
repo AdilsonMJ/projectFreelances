@@ -10,13 +10,13 @@ import java.sql.Date
 @Entity
 @Parcelize
 class Freelas(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0L,
+    @PrimaryKey(autoGenerate = true) var id: Long = 0L,
     var date: Long? = null,
     var horas: String? = null,
-    val nomeFotografo: String = "",
-    val celular: String = "",
-    val noivos: String = "",
-    val local: String = ""
+    var nomeFotografo: String = "",
+    var celular: String = "",
+    var noivos: String = "",
+    var local: String = ""
 ) : Parcelable {
 
 

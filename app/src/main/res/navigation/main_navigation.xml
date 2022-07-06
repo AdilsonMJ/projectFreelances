@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/mainFragment_ListShow">
+    <fragment
+        android:id="@+id/fragment_Show_Details_Freela"
+        android:name="com.adilson.projetoFreelances.ui.Fragments.Fragment_Show_Details_Freela"
+        android:label="fragment_show_details_freela"
+        tools:layout="@layout/fragment_show_details_freela" >
+        <action
+            android:id="@+id/fromFragShowDetailsToFragMainl"
+            app:destination="@id/mainFragment_ListShow" />
+        <action
+            android:id="@+id/fromFragShowDetailsToFragRegisterFreela"
+            app:destination="@id/fragment_Register_Freela" />
+        <action
+            android:id="@+id/fromFragShowDetailsToFragRegister"
+            app:destination="@id/fragment_register_photographer" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment_ListShow"
+        android:name="com.adilson.projetoFreelances.ui.Fragments.FragmentMain_ListShow"
+        android:label="MainFragment_ListShow"
+        tools:layout="@layout/fragment_main_list_show">
+        <action
+            android:id="@+id/FragMainToFragShowDetails"
+            app:destination="@id/fragment_Show_Details_Freela" />
+        <action
+            android:id="@+id/FragMainToFragRegisterFreela"
+            app:destination="@id/fragment_Register_Freela"
+            app:enterAnim="@android:anim/fade_in" />
+        <action
+            android:id="@+id/FragMainToFragRegisterPhotographer"
+            app:destination="@id/fragment_register_photographer" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_Register_Freela"
+        android:name="com.adilson.projetoFreelances.ui.Fragments.Fragment_Register_Freela"
+        android:label="fragment__register__freela"
+        tools:layout="@layout/fragment_register_freela" >
+        <action
+            android:id="@+id/FragRegisterFreelaToFragMain"
+            app:destination="@id/mainFragment_ListShow"
+            app:exitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_register_photographer"
+        android:name="com.adilson.projetoFreelances.ui.Fragments.Fragment_register_photographer"
+        android:label="fragment_register_photographer"
+        tools:layout="@layout/fragment_register_photographer" >
+        <action
+            android:id="@+id/FragRegisterPhotographerToFragMain"
+            app:destination="@id/mainFragment_ListShow" />
+    </fragment>
+</navigation>

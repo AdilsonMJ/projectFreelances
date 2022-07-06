@@ -16,7 +16,7 @@
             android:name=".ui.activity.CadastroFreela"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.ListaDeFreelasActivity"
+            android:name=".ui.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

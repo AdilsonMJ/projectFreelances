@@ -3,6 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/adils/Documents/GitHub/ANDROID/projetoFreelances/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.251" />
+        <entry key="..\:/Users/adils/Documents/GitHub/ANDROID/projetoFreelances/app/src/main/res/drawable/ic_launcher_background.xml" value="0.251" />
+        <entry key="..\:/Users/adils/Documents/GitHub/ANDROID/projetoFreelances/app/src/main/res/layout/activity_detalhes.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/adils/Documents/GitHub/ANDROID/projetoFreelances/app/src/main/res/layout/activity_form_freela.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/adils/Documents/GitHub/ANDROID/projetoFreelances/app/src/main/res/layout/activity_lista_freelas.xml" value="0.29907407407407405" />
+        <entry key="..\:/Users/adils/Documents/GitHub/ANDROID/projetoFreelances/app/src/main/res/layout/activity_main.xml" value="0.2015625" />
+        <entry key="..\:/Users/adils/Documents/GitHub/ANDROID/projetoFreelances/app/src/main/res/layout/fragment_main__list_show.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/adils/Documents/GitHub/ANDROID/projetoFreelances/app/src/main/res/layout/fragment_main_list_show.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/adils/Documents/GitHub/ANDROID/projetoFreelances/app/src/main/res/layout/fragment_register_freela.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/adils/Documents/GitHub/ANDROID/projetoFreelances/app/src/main/res/layout/fragment_register_photographer.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/adils/Documents/GitHub/ANDROID/projetoFreelances/app/src/main/res/layout/fragment_show_details_freela.xml" value="0.38697916666666665" />
         <entry key="..\:/Users/adils/Documents/GitHub/AluraAndroidKolinOrgs/app/src/main/res/layout/activity_cadastro_freela.xml" value="0.264" />
         <entry key="..\:/Users/adils/Documents/GitHub/AluraAndroidKolinOrgs/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/adils/Documents/GitHub/AluraAndroidKolinOrgs/app/src/main/res/layout/activity_show_freelas.xml" value="0.536" />
@@ -35,7 +46,7 @@
   </component>
   <component name="com.itcodebox.notebooks.projectservice.ProjectUIState">
     <option name="selectedNotebookId" value="3" />
-    <option name="selectedChapterId" value="9" />
-    <option name="selectedNoteId" value="16" />
+    <option name="selectedChapterId" value="10" />
+    <option name="selectedNoteId" value="17" />
   </component>
 </project>
