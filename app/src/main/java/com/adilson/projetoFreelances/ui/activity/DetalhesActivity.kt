@@ -11,6 +11,7 @@ import com.adilson.projetoFreelances.R
 import com.adilson.projetoFreelances.databinding.ActivityDetalhesBinding
 import com.adilson.projetoFreelances.model.Freelas
 import com.adilson.projetoFreelances.ui.CHAVE_FREELA_ID
+import java.text.SimpleDateFormat
 
 
 class DetalhesActivity : AppCompatActivity() {
@@ -19,6 +20,7 @@ class DetalhesActivity : AppCompatActivity() {
     private var idFreela: Long = 0L
     private var freela: Freelas? = null
     private var title: String = "Detalhes"
+    val dateFormat = SimpleDateFormat("dd/MM/yyyy")
 
 
     private val freeDAO by lazy {
@@ -54,7 +56,7 @@ class DetalhesActivity : AppCompatActivity() {
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.activity_list_menu, menu)
+        menuInflater.inflate(R.menu.activity_list_menu_edite_cancel, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -97,13 +99,13 @@ class DetalhesActivity : AppCompatActivity() {
     }
 
     private fun filltheFilds(load: Freelas) {
+
         with(binding) {
-            showDate.text = load.date?.toString()
+            showDate.text = dateFormat.format(load.date)
             showHora.text = load.horas
             showLocal.text = load.local
             showNameNoivos.text = load.noivos
             showNameProfissional.text = load.nomeFotografo
-            title = "${load.date} - ${load.nomeFotografo}"
         }
     }
 }

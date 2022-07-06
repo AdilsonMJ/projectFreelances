@@ -2,12 +2,16 @@ package com.adilson.projetoFreelances.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.adilson.projetoFreelances.DataBase.AppDatabase
+import com.adilson.projetoFreelances.R
 import com.adilson.projetoFreelances.adapter.ListFreelasAdapter
 import com.adilson.projetoFreelances.databinding.ActivityListaFreelasBinding
 import com.adilson.projetoFreelances.ui.CHAVE_FREELA_ID
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.*
 
 
 class ListaDeFreelasActivity : AppCompatActivity() {
@@ -41,7 +45,7 @@ class ListaDeFreelasActivity : AppCompatActivity() {
 
         val db = AppDatabase.getInstance(this)
         val freelaDAO = db.freelasDao()
-        adapter.upDateAdapter(freelaDAO.buscaTodos())
+        adapter.upDateAdapter(freelaDAO.buscaTodos(Date().time))
 
     }
 
@@ -74,7 +78,6 @@ class ListaDeFreelasActivity : AppCompatActivity() {
         }
 
     }
-
 
     private fun startActivityCadastroFreela() {
 

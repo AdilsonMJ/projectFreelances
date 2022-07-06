@@ -6,8 +6,9 @@ import com.adilson.projetoFreelances.model.Freelas
 @Dao
 interface freelaDAO {
 
-    @Query("SELECT * FROM Freelas ORDER BY date ASC")
-    fun buscaTodos() : List<Freelas>
+
+    @Query("SELECT * FROM Freelas WHERE date > :current ORDER BY date,horas ASC")
+    fun buscaTodos(current: Long) : List<Freelas>
 
     //Dont need user upload because now the room check if not exist the element in the DB
     @Insert(onConflict = OnConflictStrategy.REPLACE)
